@@ -1,0 +1,51 @@
+
+architecture-beta
+group ExtSys[ExternalSystems]
+service dtsp(server)[DTSP] in ExtSys
+service npci_switch(server)[NPCI_Switch] in ExtSys
+service upi(server)[UPI] in ExtSys
+group FE[FrontEnd]
+service mobile(internet)[Mobile] in FE
+service admin_p(webapp)[AdminPortal] in FE
+service merchant_p(webapp)[MerchantPortal] in FE
+service webserver(server)[NGNIX_Webserver]
+group DB[DBCluster]
+service redis_db(database)[Redis_DB] in DB
+service rtsp_db(database)[RTSP_DB] in DB
+service tomas_db(database)[TOMAS_DB] in DB
+service appgw(internet)[NGNIX_AppGW]
+service rtsp(server)[RTSP_App]
+service token(server)[Token_Server]
+service mis(server)[MIS]
+service smsgw(internet)[SMS_Gateway]
+service big(internet)[BankInterfaceGateway]
+service cbseis(server)[CBS_EIS]
+junction J1
+
+
+merchant_p:R -- T:webserver
+mobile:R -- L:webserver
+admin_p:R -- B:webserver
+
+webserver:R -- L:appgw
+appgw:R -- L:rtsp
+rtsp:R -- L:token
+appgw:B -- T:redis_db
+rtsp:B -- T:rtsp_db
+token:B -- T:tomas_db
+
+dtsp:B -- T:appgw
+npci_switch:B -- T:rtsp
+upi:B -- T:rtsp
+
+upi:T --  T:webserver
+rtsp:B -- T:J1
+J1:B -- T:big
+smsgw:L -- R:big
+big:L -- R:cbseis
+webserver:B -- T:mis
+
+
+
+
+
