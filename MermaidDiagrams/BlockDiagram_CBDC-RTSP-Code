@@ -1,0 +1,35 @@
+block-beta
+    columns 5
+  
+
+    block:User_Actions:1
+    columns 1
+        U1["U1_Load-Wallet"]
+        U2["U2_Transfer-Tokens"]
+        U3["U3_Receive-Tokens"]
+        U4["U4_Redeem-Tokens"]
+        U5["U5_Create-Wallet"]
+        U6["U6_Delete-Wallet"]
+        U7["U7_View-Wallet-Summary"]
+        U8["U8_View-Transactions"]
+    end
+    
+    space
+
+    block:User_Functions:1
+    columns 1
+        MF1["token_transfer(SenderWallet, Amount, ReceiverWallet)"]
+        MF2["create_wallet(UserID)"]
+        MF3["delete_wallet(Wallet_ID)"]
+        MF4["view_wallet_summary(*/WalletID)"]
+        MF5["view_transactions(*/Wallet_ID)"]
+    end
+
+    U1 --> MF1
+    U2 --> MF1
+    U3 --> MF1
+    U4 --> MF1
+    U5 --> MF2
+    U6 --> MF3
+    U7 --> MF4
+    U8 --> MF5
