@@ -1,4 +1,4 @@
-## Understanding of Requirements
+## Understanding of Requirements 
 
     ### 1. Application Structure
     - **Two Portals**: Admin Portal and Merchant Portal
